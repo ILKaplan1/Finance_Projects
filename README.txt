@@ -1,0 +1,1 @@
+This is a dashboard showing the actual and projected correlations between the stock prices of 2 industries using machine learning. To launch the dashboard, download or clone the repo and execute the app.py file in your terminal. From there it will launch the dashboard in your browser where you can choose the 2 industries and financial quarter to see the model's predictions
