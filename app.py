@@ -6,6 +6,7 @@ from dash import Dash, html, dcc, Input, Output, dash_table
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
+import webbrowser
 
 
 file_path = 'industry_models.json'#'/Users/iankaplan/Desktop/industry_models.json'
@@ -98,5 +99,5 @@ def update_graph(industries, timeline):
 
     return fig
 
-
+webbrowser.open('http://127.0.0.1:8050/')
 app.run_server()
