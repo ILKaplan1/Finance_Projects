@@ -35,6 +35,7 @@ for industry in industry_correlations:
 dummy_df = pd.read_csv('industry_tables.csv')#'/Users/iankaplan/Desktop/industry_tables.csv')
 
 app = Dash()
+server = app.server()
     
     
 app.layout = html.Div([
