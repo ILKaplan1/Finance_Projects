@@ -8,12 +8,12 @@ import plotly.graph_objects as go
 import pandas as pd
 
 
-file_path = '/Users/iankaplan/Desktop/industry_models.json'
+file_path = 'industry_models.json'#'/Users/iankaplan/Desktop/industry_models.json'
 
 with open(file_path, "rb") as pickle_file:
     industry_models = pickle.load(pickle_file)
 
-file_path = '/Users/iankaplan/Desktop/industry_correlations.json'
+file_path = 'industry_correlations.json'#'/Users/iankaplan/Desktop/industry_correlations.json'
 
 with open(file_path, "rb") as pickle_file:
     industry_correlations = pickle.load(pickle_file)
@@ -32,7 +32,7 @@ industry_list = {}
 for industry in industry_correlations:
     industry_list[(str(industry[0]) + ' vs ' +  str(industry[1]))] = industry
 
-dummy_df =pd.read_csv('/Users/iankaplan/Desktop/industry_tables.csv')
+dummy_df = pd.read_csv('industry_tables.csv')#'/Users/iankaplan/Desktop/industry_tables.csv')
 
 app = Dash()
     
