@@ -80,7 +80,7 @@ def update_graph(industries, timeline):
     temp_df  = temp_df.drop(columns={'Perc_Dif'})
 
 
-    predictions = industry_models[industries][1][slider_steps.index(time_slot)]
+    predictions = industry_models[industries][0][slider_steps.index(time_slot)]
     temp_df['Predictions'] = temp_df['Correlation'].iloc[:-len(predictions)].tolist() + predictions.tolist()
 
     first_non_equal_row = (temp_df['Correlation'] != temp_df['Predictions']).idxmax()
@@ -92,7 +92,7 @@ def update_graph(industries, timeline):
     fig.add_scatter(x=temp_df['Date'], y=temp_df['Predictions'], mode='lines', line=dict(color='red', dash='dash'), name='Prediction')
     fig.add_scatter(x=temp_df['Date'], y=temp_df['Correlation'], mode='lines', line=dict(color='blue'), name='Correlation')
 
-    fig.add_trace(go.Scatter(x=[None], y=[None], mode='markers', marker=dict(size=0), showlegend=True, name=f'Mean Absolute Percentile Error: {industry_models[industries][3][slider_steps.index(time_slot)]:.2%}'))
+    fig.add_trace(go.Scatter(x=[None], y=[None], mode='markers', marker=dict(size=0), showlegend=True, name=f'Mean Absolute Percentile Error: {industry_models[industries][1][slider_steps.index(time_slot)]:.2%}'))
     #fig.add_trace(go.Scatter(x=[None], y=[None], mode='markers', marker=dict(size=0), showlegend=True, name=f'MSE: {industry_models[industries][2][slider_steps.index(time_slot)]:.2f}'))
 
 
