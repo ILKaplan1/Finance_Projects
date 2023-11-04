@@ -9,12 +9,12 @@ import pandas as pd
 import webbrowser
 
 
-file_path = 'industry_models.json'#'/Users/iankaplan/Desktop/industry_models.json'
+file_path = 'industry_models.json'
 
 with open(file_path, "rb") as pickle_file:
     industry_models = pickle.load(pickle_file)
 
-file_path = 'industry_correlations.json'#'/Users/iankaplan/Desktop/industry_correlations.json'
+file_path = 'industry_correlations.json'
 
 with open(file_path, "rb") as pickle_file:
     industry_correlations = pickle.load(pickle_file)
@@ -33,7 +33,7 @@ industry_list = {}
 for industry in industry_correlations:
     industry_list[(str(industry[0]) + ' vs ' +  str(industry[1]))] = industry
 
-dummy_df = pd.read_csv('industry_tables.csv')#'/Users/iankaplan/Desktop/industry_tables.csv')
+dummy_df = pd.read_csv('industry_tables.csv')
 
 app = Dash()
 server = app.server
@@ -44,12 +44,8 @@ app.layout = html.Div([
     html.P('Select industries:'),
     dcc.Dropdown(
         id='industries',
-        #options = industry for industry in industry_correlations
         options = [{'label': industry, 'value': industry} for industry in industry_list],
-        #options=[{'label': f'{industry[0]} vs {industry[1]}', 'value': industry} for industry in industry_correlations],
         value = 'Communication Services vs Consumer Discretionary',
-        #persistence = True,
-        #persistence_type = 'session',
     ),
     dcc.Graph(id='time-series-chart'),
     dcc.Slider(
@@ -70,12 +66,10 @@ app.layout = html.Div([
     Input('slider', 'value'),
 )
 
-def update_graph(industries, timeline):
-    #time_slot = 'Q3 2018' 
+def update_graph(industries, timeline): 
     time_slot = slider_steps[timeline]
     industries = industry_list[industries]
     industries = (tuple(industries))
-    #key = industries
     temp_df = dummy_df
     temp_df['Correlation'] = industry_correlations[industries]
     temp_df  = temp_df.drop(columns={'Perc_Dif'})
@@ -94,8 +88,7 @@ def update_graph(industries, timeline):
     fig.add_scatter(x=temp_df['Date'], y=temp_df['Correlation'], mode='lines', line=dict(color='blue'), name='Correlation')
 
     fig.add_trace(go.Scatter(x=[None], y=[None], mode='markers', marker=dict(size=0), showlegend=True, name=f'Mean Absolute Percentile Error: {industry_models[industries][1][slider_steps.index(time_slot)]:.2%}'))
-    #fig.add_trace(go.Scatter(x=[None], y=[None], mode='markers', marker=dict(size=0), showlegend=True, name=f'MSE: {industry_models[industries][2][slider_steps.index(time_slot)]:.2f}'))
-
+   
 
     return fig
 
